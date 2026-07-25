@@ -18,10 +18,6 @@ In a physical 4F relay, the first lens maps the input field into a Fourier plane
 - Directional spatial-frequency filtering
 - Relationship between Fourier-plane masks and image structure
 
-
-
-This simulates the conceptual behavior of a 4F system. The input field is transformed into spatial-frequency content at the Fourier plane. Applying a mask in the Fourier plane changes the reconstructed image at the output plane.
-
 ## Physical Interpretation
 
 An image plane is a plane where object points map to image points. 
