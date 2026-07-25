@@ -132,10 +132,6 @@ def horizontal_grating(
 # Fourier optics functions
 # -----------------------------
 
-def centered_fft2(field: np.ndarray) -> np.ndarray:
-    # Compute the centered 2D FFT of a field.
-    return np.fft.fftshift(np.fft.fft2(field))
-
 def centered_ifft2(field: np.ndarray) -> np.ndarray:
     # Compute the centered 2D inverse FFT of a field.
     return np.fft.ifft2(np.fft.ifftshift(field))
