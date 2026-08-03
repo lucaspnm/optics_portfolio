@@ -73,3 +73,24 @@ This script generates a circular pupil, applies different pupil-plane phase func
 The simulation flow is:
 
 Pupil amplitude & phase -> complex pupil field -> Fourier transform -> focal-plane intensity / PSF
+
+# Example results
+
+Limitations
+
+This is a conceptual scalar Fourier-optics simulation. It uses normalized coordinates and arbitrary phase strengths. It does not include real physical units, wavelength scaling, focal length scaling, finite detector sampling, polarization, real lens prescriptions, material dispersion, or alignment tolerances.
+
+The aberration functions are simplified phase models intended to build intuition. They are not a complete optical design model.
+
+Future Work
+
+Possible extensions include:
+
+Add physical units, wavelength, pupil diameter, and focal length scaling.
+Add Airy disk radius calculations.
+Add Zernike polynomial notation and coefficients.
+Add additional aberrations such as spherical aberration, trefoil, tip, and tilt.
+Calculate Strehl ratio as a function of RMS wavefront error.
+Compare PSFs using linear and logarithmic display scales.
+Add optical transfer function and modulation transfer function calculations.
+Build a related Zemax/OpticStudio model and compare the simulated PSF to a ray-based or wave-based optical design output.
