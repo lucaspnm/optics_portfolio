@@ -101,6 +101,84 @@ def airy_radius(
     """
     Calculate diffraction-limited Airy disk radius to the first zero.
 
-    r_Airy
-    
+        r_Airy ~ 1.22 * lambda * f / D
+
+    Parameters should use consistent units.
     """
+    return 1.22 * wavelength * focal_length / aperture_diameter
+
+def diffraction_limited_spot_diameter(
+    wavelength: float,
+    focal_length: float,
+    aperture_diameter: float,
+) -> float:
+    """
+    Calculate diffraction-limited Airy disk diameter to the first zero.
+    
+        diameter ~ 2.44 * lambda * f / D
+    """
+    return 2.0 * airy_radius(wavelength, focal_length, aperture_diameter)
+
+# -----------------------------------------------------------------------------
+# Gaussian beam calculations
+# -----------------------------------------------------------------------------
+
+def rayleigh_range(
+    waist_radius: float,
+    wavelength: float,
+) -> float:
+    """
+    Calculate Gaussian beam Rayleigh range.
+
+        z_R = pi * w0^2 / lambda
+    """
+    return np.pi * waist_radius**2 / wavelength
+
+def gaussian_beam_radius(
+    z: np.ndarray,
+    waist_radius: float,
+    wavelength: float,
+) -> np.ndarray:
+    """
+    Calculate Gaussian beam radius as a function of propogation distance.
+
+        w(z) = w0 * sqrt(1 + (z/z_R)^2 )
+    """
+    z_r = rayleigh_range(waist_radius, wavelength)
+    return waist_radius * np.sqrt(1.0 + (z / z_r) ** 2)
+
+def gaussian_divergence_half_angle(
+    waist_radius: float,
+    wavelength: float,
+) -> float:
+    """
+    Calculate far-field Gaussian beam divergence half-angle.
+    
+        theta ~ lambda / (pi * w0)
+    """
+    return wavelength / np.pi * waist_radius
+
+def beam_expander_output_divergence(
+    input_divergence: float,
+    focal_length_1: float,
+    focal_length_2: float,
+) -> float:
+    """
+    Calculate approximate output divergence after a beam expander.
+    Beam expansion reduces divergence by the telescope magnification.
+
+        theta_out = theta_in / M
+    """
+    magnification = focal_length_2 / focal_length_1
+    return input_divergence / magnification
+
+# -----------------------------------------------------------------------------
+# Plotting helpers 
+# -----------------------------------------------------------------------------
+
+def save_figure(fig: plt.figure, filename: str) -> None:
+    """Save a figure to the figures directory."""
+    out_path = FIG_DIR / filename
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Saved figure to {out_path}")
